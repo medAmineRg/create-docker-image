@@ -24,8 +24,8 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
                         sh 'docker login -u mohamed99amine -p ${dockerhub}'
+                        sh 'docker push devops/real-project'
                     }
-                    sh 'docker push devops/real-project'
                 }
             }
         }
