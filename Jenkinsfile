@@ -3,7 +3,11 @@ pipeline {
         docker { image 'node:16-alpine' }
     }
     stages {
-
+        
+        stage('Initialize'){
+            def dockerHome = tool 'docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
         stage('Build') {
             steps {
                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/medAmineRg/create-docker-image']])
