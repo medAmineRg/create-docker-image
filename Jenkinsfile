@@ -6,21 +6,27 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "node -v"
+               checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/medAmineRg/create-docker-image']])
                 sh "npm i"
-                sh "ls"
             }
         }
 
-        stage('Test') {
+        stage('Build Image') {
             steps {
-                echo 'testing...'
+                script {
+                    sh 'docker build image -t devops/real-project .'
+                }
             }
         }
 
-        stage('Deliver') {
+        stage('Push') {
             steps {
-                echo 'building...'
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                        sh 'docker login -u mohamed99amine -p ${dockerhub}'
+                    }
+                    sh 'docker push devops/real-project'
+                }
             }
         }
     }
