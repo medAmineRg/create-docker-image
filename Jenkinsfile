@@ -37,11 +37,7 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''
-          node --version
-          git --version
-          curl --version
-        '''
+        echo 'testing ...'
       }
     }
   }
