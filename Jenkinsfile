@@ -1,7 +1,4 @@
 pipeline {
-    tools {
-        docker 'latest'
-    }
     agent {
         docker {
             image 'node:18.17.1-alpine3.18'
