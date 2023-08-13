@@ -16,8 +16,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    // def dockerHome = tool 'docker'
-                    // env.PATH = "${dockerHome}/bin:${env.PATH}"
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
                     sh 'docker build image -t devops/real-project .'
                 }
             }
@@ -26,6 +26,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                        def dockerHome = tool 'docker'
+                        env.PATH = "${dockerHome}/bin:${env.PATH}"
                         sh 'docker login -u mohamed99amine -p ${dockerhub}'
                         sh 'docker push devops/real-project'
                     }
