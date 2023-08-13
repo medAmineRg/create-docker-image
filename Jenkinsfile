@@ -25,9 +25,9 @@ pipeline {
         stage('Push') {
             steps {
                 script {
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                        def dockerHome = tool 'docker'
-                        env.PATH = "${dockerHome}/bin:${env.PATH}"
                         sh 'docker login -u mohamed99amine -p ${dockerhub}'
                         sh 'docker push devops/real-project'
                     }
