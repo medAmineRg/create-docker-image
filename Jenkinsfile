@@ -5,14 +5,6 @@ pipeline {
             args '-p 3000:3000'
         }
     }
-    stage('Initialize'){
-             steps {
-                script {
-                    def dockerHome = tool 'myDocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
-             }
-    }
     stages {
         stage('Build') {
             steps {
@@ -23,20 +15,19 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    sh 'docker build image -t devops/real-project .'
+                    dockerImage = docker.build("dev/khobz")
                 }
             }
         }
-        stage('Push') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                        sh 'docker login -u mohamed99amine -p ${dockerhub}'
-                        sh 'docker push devops/real-project'
-                    }
-                }
-            }
-        }
+        // stage('Push') {
+        //     steps {
+        //         script {
+        //             withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+        //                 dockerImage.push()
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
 
