@@ -27,7 +27,6 @@
 // }
 
 node {  
-    stages {
         stage('Clone repository') {
             git credentialsId: 'git', url: 'https://github.com/medAmineRg/create-docker-image'
         }
@@ -38,7 +37,6 @@ node {
             withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
                 dockerImage.push()
             }
-         } 
-    }    
+         }   
 }
 
