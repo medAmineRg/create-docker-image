@@ -12,19 +12,19 @@ pipeline {
                 sh "npm i"
             }
         }
-        stage('Initialize'){
-             steps {
-                script {
-                    def dockerHome = tool 'myDocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
-             }
-        }
+        // stage('Initialize'){
+        //      steps {
+        //         script {
+        //             def dockerHome = tool 'myDocker'
+        //             env.PATH = "${dockerHome}/bin:${env.PATH}"
+        //         }
+        //      }
+        // }
         stage('Build Image') {
             steps {
                 script {
-                    // def dockerHome = tool 'docker'
-                    // env.PATH = "${dockerHome}/bin:${env.PATH}"
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
                     sh 'docker build image -t devops/real-project .'
                 }
             }
