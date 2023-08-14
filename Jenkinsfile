@@ -31,7 +31,7 @@ node {
             git credentialsId: 'git', url: 'https://github.com/medAmineRg/create-docker-image'
         }
         stage('Build image') {
-           dockerImage = docker.build("devkhobz-ix")
+           dockerImage = docker.build("mohamed99amine/devkhobzix")
         }
          stage('Push image') {
             // withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
@@ -41,7 +41,7 @@ node {
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
                         sh 'echo ${dockerhub} | docker login -u mohamed99amine --password-stdin'
                 }
-                sh 'docker push devkhobz-ix'
+                sh 'docker push mohamed99amine/devkhobzix'
          }   
 }
 
