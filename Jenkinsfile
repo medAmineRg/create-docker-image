@@ -5,6 +5,14 @@ pipeline {
             args '-p 3000:3000'
         }
     }
+    stage('Initialize'){
+             steps {
+                script {
+                    def dockerHome = tool 'myDocker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+             }
+    }
     stages {
         stage('Build') {
             steps {
@@ -12,19 +20,9 @@ pipeline {
                 sh "npm i"
             }
         }
-        // stage('Initialize'){
-        //      steps {
-        //         script {
-        //             def dockerHome = tool 'myDocker'
-        //             env.PATH = "${dockerHome}/bin:${env.PATH}"
-        //         }
-        //      }
-        // }
         stage('Build Image') {
             steps {
                 script {
-                    def dockerHome = tool 'docker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
                     sh 'docker build image -t devops/real-project .'
                 }
             }
