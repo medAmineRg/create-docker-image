@@ -10,7 +10,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build("dev/khobz")
+                    def customImage = docker.build("my-image:${env.BUILD_ID}")
                 }
             }
         }
