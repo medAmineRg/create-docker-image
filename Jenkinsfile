@@ -36,7 +36,7 @@ node {
     }
     
  stage('Push image') {
-        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+            withDockerRegistry(credentialsId: 'dockerhubacc', url: 'https://hub.docker.com/') {
             dockerImage.push()
         }
     }    
