@@ -34,9 +34,15 @@ node {
            dockerImage = docker.build("dev/khobz")
         }
          stage('Push image') {
-            withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
-                dockerImage.push()
-            }
+            // withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
+            //     dockerImage.push()
+            // }
+
+                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                   sh 'docker login -u mohamed99amine -p ${dockerhubpwd}'
+
+}
+                   sh 'docker push dev/khobz'
          }   
 }
 
