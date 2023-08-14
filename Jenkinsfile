@@ -36,7 +36,7 @@ node {
     }
     
  stage('Push image') {
-            withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
+            withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/', '--password-stdin') {
                 dockerImage.push()
         }
     }    
