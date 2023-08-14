@@ -27,9 +27,6 @@
 // }
 
 node {  
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhubjenkins')
-    }
     stages {
         stage('Clone repository') {
             git credentialsId: 'git', url: 'https://github.com/medAmineRg/create-docker-image'
@@ -37,16 +34,10 @@ node {
         stage('Build image') {
            dockerImage = docker.build("dev/khobz")
         }
-        stage('Login') {
-          steps {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          }
-        }
          stage('Push image') {
-            // withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
+            withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
                 dockerImage.push()
-        // }
+        }
     }    
-}
 }
 
