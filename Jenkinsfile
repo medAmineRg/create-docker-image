@@ -36,8 +36,8 @@ node {
     }
     
  stage('Push image') {
-            withDockerRegistry(credentialsId: 'dockerhubacc', url: 'https://hub.docker.com/') {
-            dockerImage.push()
+            withDockerRegistry(credentialsId: 'dockerhubjenkins', url: 'https://hub.docker.com/') {
+                dockerImage.push()
         }
     }    
 }
