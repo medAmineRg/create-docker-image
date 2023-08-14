@@ -39,7 +39,7 @@ node {
             // }
 
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                        sh 'cat ${dockerhub} | docker login -u mohamed99amine --password-stdin'
+                        sh 'echo ${dockerhub} | docker login -u mohamed99amine --password-stdin'
                 }
                 sh 'docker push dev/khobz'
          }   
